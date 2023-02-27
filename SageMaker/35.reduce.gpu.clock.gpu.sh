@@ -2,7 +2,7 @@
 set -x
 set -e
 
-boostClock() {
+reduceClock() {
     wget -O /tmp/aws-gpu-reduce-clock.sh 'https://raw.githubusercontent.com/jagwar/stability-hpc/main/SageMaker/custom-scripts-and-configs/aws-gpu-reduce-clock.sh'
     wget -O /tmp/aws-gpu-reduce-clock.service 'https://raw.githubusercontent.com/jagwar/stability-hpc/main/SageMaker/custom-scripts-and-configs/aws-gpu-reduce-clock.service'
     sudo mv /tmp/aws-gpu-reduce-clock.sh /opt/aws/ && chmod +x /opt/aws/aws-gpu-reduce-clock.sh
@@ -15,7 +15,7 @@ boostClock() {
 # ----------------------------------------------------------------------------
 main() {
     echo "[INFO][$(date '+%Y-%m-%d %H:%M:%S')] 35.reduce.gpu.clock.gpu.sh: START" >&2
-    boostClock
+    reduceClock
     echo "[INFO][$(date '+%Y-%m-%d %H:%M:%S')] 35.reduce.gpu.clock.gpu.sh: STOP" >&2
 }
 
