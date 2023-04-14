@@ -7,13 +7,9 @@ installRAID0() {
     parted -a optimal /dev/nvme2n1 --script mklabel gpt
     parted -a optimal /dev/nvme3n1 --script mklabel gpt
     parted -a optimal /dev/nvme4n1 --script mklabel gpt
-    parted -a optimal /dev/nvme5n1 --script mklabel gpt
-    parted -a optimal /dev/nvme6n1 --script mklabel gpt
-    parted -a optimal /dev/nvme7n1 --script mklabel gpt
-    parted -a optimal /dev/nvme8n1 --script mklabel gpt
-    mkfs.btrfs -d raid0 -m raid0 -f /dev/nvme[1-8]n1
+    mkfs.btrfs -d raid0 -m raid0 -f /dev/nvme[1-4]n1
     uuid=$(blkid /dev/nvme1n1 -o value -s UUID)
-    sudo sed -i s/btrfs/d /etc/fstab
+    sudo sed -i '/btrfs/d' /etc/fstab
     echo "UUID=$uuid /scratch           btrfs   defaults      0  0" >> /etc/fstab
     mkdir -p /scratch
     mount /scratch
